@@ -10,37 +10,59 @@
 #                                                                              #
 # **************************************************************************** #
 
+#Sources files
 SRC = main.c \
-parser.c
+parser.c \
+init.c
 
+#Sources location
 SRCPATH = ./src/
 
 OBJ = $(SRC:.c=.o)
 
-LIB = libft.a
+#Libraries paths
+LIBFT = ./libft/
+GLFW = ./glfw/
 
-LIBPATH = ./libft/
+#Libraries binaries
+LIBFTBIN = libft.a
 
+#Libraries includes
+GLFW_INC = -I $(GLFW)/include
+LIBFT_INC = -I $(LIBFT)/includes
+
+#Libraries linking
+GLFW_LINK = -L $(GLFW)/src -l glfw3 -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
+LIBFT_LINK = -L $(LIBFT) -l ft
+
+#Program name
 NAME = scop
 
+#gcc flags
 FLAGS = -Wall -Werror -Wextra
 
 all : $(NAME)
 $(NAME) :
-	@make -C $(LIBPATH)
-	@gcc -c $(FLAGS) $(addprefix $(SRCPATH),$(SRC))
+	@cd $(GLFW) && cmake .
+	@make -C $(GLFW) glfw
+	@make -C $(LIBFT)
+	@gcc -c $(FLAGS) $(GLFW_INC) $(LIBFT_INC) $(addprefix $(SRCPATH),$(SRC))
 	@echo "\033[33;32m[Create objects]\t\t\t[ ✓ ]"
-	@gcc -o $(NAME) $(FLAGS) $(OBJ) $(LIBPATH)$(LIB)
+	@gcc -o $(NAME) $(FLAGS) $(OBJ) $(GLFW_LINK) $(LIBFT_LINK)
 	@echo "\033[33;32m[Create $(NAME)]\t\t\t\t[ ✓ ]"
 
 clean :
-	@make clean -C $(LIBPATH)
+	@make -C $(GLFW) clean
+	@make -C $(LIBFT) clean
 	@rm -f $(OBJ)
 	@echo "\033[33;32m[Clean objects]\t\t\t\t[ ✓ ]"
 
 fclean : clean
-	@rm -f $(LIBPATH)$(LIB)
+	@rm -rf $(GLFW)/CMakeCache.txt $(GLFW)/CMakeFiles/
+	@rm -f $(LIBFT)$(LIBFTBIN)
 	@rm -f $(NAME)
 	@echo "\033[33;32m[Clean $(NAME)]\t\t\t\t[ ✓ ]"
 
 re : fclean all
+
+.PHONY : all clean fclean re
