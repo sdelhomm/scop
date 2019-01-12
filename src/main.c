@@ -22,7 +22,7 @@ void leave_scop(t_param *p)
 int main(int argc, char **argv)
 {
 	t_param p;
-	GLuint vao;
+	//GLuint vao;
 	GLfloat vertex[9];
 	GLuint vbuffer;
 
@@ -32,9 +32,19 @@ int main(int argc, char **argv)
 	init_scop(&p);
 	//parse_file(argv[1]);
 
+	//glad_glGenVertexArrays(1, &vao);
+	//glad_glBindVertexArray(vao);
+
+	// if(gladLoadGL())
+	// {
+    //     // you need an OpenGL context before loading glad
+    //     printf("I did load GL with no context!\n");
+    //     exit(-1);
+    // }
+
 	//GLEW ?
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	//glGenVertexArrays(1, &vao);
+	//glBindVertexArray(vao);
 
 	vertex[0] = -1;
 	vertex[1] = -1;
@@ -50,23 +60,23 @@ int main(int argc, char **argv)
 	glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
 
-	while (!glfwWindowShouldClose(p.win))
-	{
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
+	// while (!glfwWindowShouldClose(p.win))
+	// {
+	// 	glEnableVertexAttribArray(0);
+	// 	glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
 
-		glVertexAttribPointer(
-			0,
-			3,
-			GL_FLOAT,
-			GL_FALSE,
-			0,
-			(void*)0
-		);
+	// 	glVertexAttribPointer(
+	// 		0,
+	// 		3,
+	// 		GL_FLOAT,
+	// 		GL_FALSE,
+	// 		0,
+	// 		(void*)0
+	// 	);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDisableVertexAttribArray(0);
-	}
+	// 	glDrawArrays(GL_TRIANGLES, 0, 3);
+	// 	glDisableVertexAttribArray(0);
+	// }
 
 	//ENDTEST
 	argv[0] = "ha";

@@ -10,6 +10,21 @@
 #                                                                              #
 # **************************************************************************** #
 
+#Libraries paths
+LIBFT = ./libft/
+GLFW = ./glfw/
+
+#Libraries binaries
+LIBFTBIN = libft.a
+
+#Libraries includes
+GLFW_INC = -I $(GLFW)include
+LIBFT_INC = -I $(LIBFT)includes
+
+#Libraries linking
+GLFW_LINK = -L $(GLFW)/src -l glfw3 -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
+LIBFT_LINK = -L $(LIBFT) -l ft
+
 #Sources files
 SRC = main.c \
 parser.c \
@@ -19,21 +34,6 @@ init.c
 SRCPATH = ./src/
 
 OBJ = $(SRC:.c=.o)
-
-#Libraries paths
-LIBFT = ./libft/
-GLFW = ./glfw/
-
-#Libraries binaries
-LIBFTBIN = libft.a
-
-#Libraries includes
-GLFW_INC = -I $(GLFW)/include
-LIBFT_INC = -I $(LIBFT)/includes
-
-#Libraries linking
-GLFW_LINK = -L $(GLFW)/src -l glfw3 -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
-LIBFT_LINK = -L $(LIBFT) -l ft
 
 #Program name
 NAME = scop
@@ -58,8 +58,8 @@ clean :
 	@echo "\033[33;32m[Clean objects]\t\t\t\t[ ✓ ]"
 
 fclean : clean
-	@rm -rf $(GLFW)/CMakeCache.txt $(GLFW)/CMakeFiles/
 	@rm -f $(LIBFT)$(LIBFTBIN)
+	@echo "\033[33;32m[Clean $(LIBFTBIN)]\t\t\t\t[ ✓ ]"
 	@rm -f $(NAME)
 	@echo "\033[33;32m[Clean $(NAME)]\t\t\t\t[ ✓ ]"
 

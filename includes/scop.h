@@ -7,6 +7,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
+#include <glad/glad.h>
 # include <GLFW/glfw3.h>
 # include "../libft/includes/libft.h"
 
